@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 22: Quang Hợp Ở Thực Vật - Phiếu Học Tập Tương Tác</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & Be Vietnam Pro for crisp Vietnamese typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Be Vietnam Pro"', 'Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        leaf: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Dynamic base font size for easy readability (adjustable via A- / A+) */
+        :root {
+            --content-scale: 1;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', 'Inter', sans-serif;
+            background-color: #f2f8f4;
+            color: #1e293b;
+            overflow: hidden;
+        }
+
+        /* Scalable content container */
+        .scalable-text {
+            font-size: calc(1.2rem * var(--content-scale));
+            line-height: 1.75;
+        }
+
+        .scalable-heading {
+            font-size: calc(1.65rem * var(--content-scale));
+            line-height: 1.35;
+        }
+
+        /* Inline fill-in-the-blank inputs */
+        .blank-input {
+            display: inline-block;
+            min-width: 150px;
+            max-width: 100%;
+            padding: 4px 12px;
+            margin: 3px 4px;
+            border: 2.5px solid #94a3b8;
+            border-radius: 12px;
+            background-color: #ffffff;
+            color: #0f172a;
+            font-weight: 700;
+            font-size: inherit;
+            text-align: center;
+            transition: all 0.2s ease;
+            outline: none;
+            vertical-align: baseline;
+        }
+
+        .blank-input:focus {
+            border-color: #16a34a;
+            box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.2);
+            background-color: #f0fdf4;
+        }
+
+        .blank-input.active-target {
+            border-color: #0284c7;
+            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.2);
+        }
+
+        .blank-input.correct {
+            border-color: #16a34a !important;
+            background-color: #dcfce7 !important;
+            color: #14532d !important;
+        }
+
+        .blank-input.incorrect {
+            border-color: #dc2626 !important;
+            background-color: #fee2e2 !important;
+            color: #991b1b !important;
+        }
+
+        /* Table inputs & Textareas */
+        .table-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 2px solid #cbd5e1;
+            border-radius: 12px;
+            background-color: #ffffff;
+            font-size: inherit;
+            font-weight: 500;
+            color: #0f172a;
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .table-input:focus {
+            border-color: #16a34a;
+            box-shadow: 0 0 0 4px rgba(22, 163, 74, 0.18);
+        }
+
+        .table-input.correct {
+            border-color: #16a34a;
+            background-color: #f0fdf4;
+        }
+
+        .table-input.incorrect {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+        }
+
+        /* Word bank chips */
+        .word-chip {
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .word-chip:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px -3px rgba(22, 163, 74, 0.25);
+        }
+
+        .word-chip:active {
+            transform: scale(0.96);
+        }
+
+        /* Custom subtle scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 8px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+
+        /* Animations */
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .step-animate {
+            animation: fadeSlideIn 0.3s ease-out forwards;
+        }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+        .float-anim {
+            animation: floatSlow 3.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseSun {
+            0%, 100% { transform: scale(1); opacity: 0.95; }
+            50% { transform: scale(1.06); opacity: 1; }
+        }
+        .sun-anim {
+            transform-origin: center;
+            animation: pulseSun 3s ease-in-out infinite;
+        }
+
+        /* Print styles for exporting completed worksheet */
+        @media print {
+            body { overflow: visible !important; background: white !important; }
+            #top-header, #sidebar, #bottom-nav, .no-print { display: none !important; }
+            #main-scroll { overflow: visible !important; height: auto !important; padding: 0 !important; }
+        }
+    </style>
+</head>
+<body class="h-screen w-screen flex flex-col select-none sm:select-auto">
+
+    <!-- ==================== TOP HEADER ==================== -->
+    <header id="top-header" class="h-16 sm:h-18 bg-gradient-to-r from-leaf-800 via-leaf-700 to-emerald-700 text-white shadow-lg flex items-center justify-between px-3 sm:px-6 z-30 shrink-0">
+        <!-- Left: Sidebar Toggle & Title -->
+        <div class="flex items-center gap-3 min-w-0">
+            <button id="btn-toggle-sidebar" onclick="toggleSidebar()" class="p-2.5 rounded-xl bg-white/15 hover:bg-white/25 transition flex items-center justify-center" title="Mở / Đóng mục lục">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+            <div class="flex items-center gap-2.5 truncate">
+                <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center shrink-0 hidden sm:flex">
+                    <span class="text-2xl">🌿</span>
+                </div>
+                <div class="truncate">
+                    <h1 class="font-extrabold text-base sm:text-xl tracking-tight truncate">BÀI 22. QUANG HỢP Ở THỰC VẬT</h1>
+                    <p id="header-student-info" class="text-xs sm:text-sm text-leaf-100 font-medium truncate">Phiếu học tập chuẩn bị bài • KHTN 7</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Center: Progress Bar (Desktop) -->
+        <div class="hidden lg:flex flex-col items-center w-64 xl:w-80 mx-4">
+            <div class="w-full flex justify-between text-xs font-semibold text-leaf-100 mb-1">
+                <span>Tiến độ hoàn thành</span>
+                <span id="progress-text">0 / 13 câu</span>
+            </div>
+            <div class="w-full h-3 bg-black/25 rounded-full overflow-hidden p-0.5">
+                <div id="progress-bar" class="h-full bg-gradient-to-r from-amber-300 to-lime-300 rounded-full transition-all duration-500" style="width: 0%;"></div>
+            </div>
+        </div>
+
+        <!-- Right: Controls (Font Size, Sound, Fullscreen) -->
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            <!-- Font size controls -->
+            <div class="flex items-center bg-white/15 rounded-xl p-1" title="Điều chỉnh cỡ chữ">
+                <button onclick="changeFontSize(-0.1)" class="px-2.5 py-1 rounded-lg hover:bg-white/20 font-bold text-sm sm:text-base transition" title="Thu nhỏ chữ">A-</button>
+                <span id="font-size-label" class="px-1.5 text-xs font-bold hidden sm:inline">100%</span>
+                <button onclick="changeFontSize(0.1)" class="px-2.5 py-1 rounded-lg hover:bg-white/20 font-bold text-sm sm:text-base transition" title="Phóng to chữ">A+</button>
+            </div>
+
+            <!-- Sound toggle -->
+            <button id="btn-sound" onclick="toggleSound()" class="p-2.5 rounded-xl bg-white/15 hover:bg-white/25 transition" title="Bật / Tắt âm thanh">
+                <svg id="icon-sound-on" class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/>
+                </svg>
+                <svg id="icon-sound-off" class="w-5 h-5 sm:w-6 sm:h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zM17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"/>
+                </svg>
+            </button>
+
+            <!-- Fullscreen toggle -->
+            <button id="btn-fullscreen" onclick="toggleFullscreen()" class="p-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-leaf-950 font-bold transition flex items-center gap-1.5 shadow" title="Toàn màn hình">
+                <svg id="icon-fs-enter" class="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/>
+                </svg>
+                <svg id="icon-fs-exit" class="w-5 h-5 sm:w-6 sm:h-6 hidden" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25"/>
+                </svg>
+                <span class="hidden md:inline text-sm">Toàn màn hình</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== MAIN BODY ==================== -->
+    <div class="flex-1 flex overflow-hidden relative">
+
+        <!-- Sidebar Overlay for Mobile -->
+        <div id="sidebar-backdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-900/40 z-20 hidden lg:hidden backdrop-blur-xs"></div>
+
+        <!-- ==================== LEFT SIDEBAR NAVIGATION ==================== -->
+        <aside id="sidebar" class="w-80 bg-white border-r border-slate-200 flex flex-col shrink-0 z-20 transition-all duration-300 absolute lg:static inset-y-0 left-0 -translate-x-full lg:translate-x-0 shadow-xl lg:shadow-none">
+            <div class="p-4 border-b border-slate-100 bg-leaf-50/70 flex items-center justify-between">
+                <span class="font-extrabold text-leaf-800 text-base uppercase tracking-wide">Mục lục Phiếu học tập</span>
+                <button onclick="toggleSidebar()" class="lg:hidden p-1.5 rounded-lg text-slate-500 hover:bg-slate-200">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+            <nav id="sidebar-nav" class="flex-1 overflow-y-auto p-3 space-y-1.5">
+                <!-- Populated dynamically by JS -->
+            </nav>
+            <div class="p-3 border-t border-slate-100 bg-slate-50">
+                <button onclick="goToStep(steps.length - 1)" class="w-full py-2.5 px-4 rounded-xl bg-leaf-600 hover:bg-leaf-700 text-white font-bold text-sm transition shadow flex items-center justify-center gap-2">
+                    <span>📋</span> Xem tổng kết & In phiếu
+                </button>
+            </div>
+        </aside>
+
+        <!-- ==================== MAIN WORKSPACE ==================== -->
+        <main class="flex-1 flex flex-col min-w-0 bg-[#f2f8f4] overflow-hidden">
+            <!-- Scrollable Content Area -->
+            <div id="main-scroll" class="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8">
+                <div id="step-container" class="max-w-5xl mx-auto pb-8">
+                    <!-- Active Step Content rendered here -->
+                </div>
+            </div>
+
+            <!-- Sticky Bottom Action Bar -->
+            <footer id="bottom-nav" class="bg-white border-t border-slate-200 px-4 sm:px-8 py-3.5 flex flex-wrap items-center justify-between gap-3 shrink-0 shadow-[0_-4px_16px_rgba(0,0,0,0.04)] z-10">
+                <button id="btn-prev" onclick="prevStep()" class="px-5 py-3 rounded-xl border-2 border-slate-300 text-slate-700 hover:bg-slate-100 font-bold text-base sm:text-lg transition flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+                    <span>Quay lại</span>
+                </button>
+
+                <div class="flex items-center gap-2 sm:gap-3">
+                    <button id="btn-hint" onclick="toggleHint()" class="px-4 sm:px-5 py-3 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 font-bold text-base sm:text-lg transition flex items-center gap-2 hidden">
+                        <span>💡</span> <span class="hidden sm:inline">Gợi ý / Đáp án</span>
+                    </button>
+                    <button id="btn-check" onclick="checkCurrentStep()" class="px-5 sm:px-6 py-3 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-base sm:text-lg transition shadow-md flex items-center gap-2 hidden">
+                        <span>✅</span> <span>Kiểm tra</span>
+                    </button>
+                </div>
+
+                <button id="btn-next" onclick="nextStep()" class="px-6 py-3 rounded-xl bg-leaf-600 hover:bg-leaf-700 text-white font-bold text-base sm:text-lg transition shadow-md flex items-center gap-2">
+                    <span id="btn-next-label">Tiếp theo</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+                </button>
+            </footer>
+        </main>
+    </div>
+
+    <!-- ==================== CUSTOM TOAST / MODAL ==================== -->
+    <div id="toast-box" class="fixed top-20 right-5 z-50 transform translate-x-[120%] transition-transform duration-300 max-w-md">
+        <div id="toast-inner" class="rounded-2xl shadow-2xl px-5 py-4 font-bold text-base sm:text-lg flex items-center gap-3 border-2">
+            <span id="toast-icon" class="text-2xl"></span>
+            <span id="toast-msg"></span>
+        </div>
+    </div>
+
+    <!-- Custom Confirmation Modal (No alert/confirm) -->
+    <div id="custom-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 hidden items-center justify-center p-4">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-6 sm:p-8 border border-slate-200 step-animate">
+            <h3 id="modal-title" class="text-2xl font-extrabold text-slate-800 mb-3">Xác nhận</h3>
+            <p id="modal-body" class="text-lg text-slate-600 mb-6"></p>
+            <div class="flex justify-end gap-3">
+                <button onclick="closeModal()" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-base">Hủy</button>
+                <button id="modal-confirm-btn" class="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-base">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== APPLICATION LOGIC ==================== -->
+    <script>
+        /* =====================================================================
+           1. AUDIO FEEDBACK (Web Audio API - No external files required)
+           ===================================================================== */
+        let soundEnabled = true;
+        let audioCtx = null;
+
+        function playTone(type) {
+            if (!soundEnabled) return;
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                const now = audioCtx.currentTime;
+
+                if (type === 'click') {
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(520, now);
+                    osc.frequency.exponentialRampToValueAtTime(680, now + 0.06);
+                    gain.gain.setValueAtTime(0.08, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+                    osc.start(now);
+                    osc.stop(now + 0.07);
+                } else if (type === 'success') {
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(523.25, now); // C5
+                    osc.frequency.setValueAtTime(659.25, now + 0.1); // E5
+                    osc.frequency.setValueAtTime(783.99, now + 0.2); // G5
+                    gain.gain.setValueAtTime(0.14, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+                    osc.start(now);
+                    osc.stop(now + 0.4);
+                } else if (type === 'error') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(240, now);
+                    osc.frequency.linearRampToValueAtTime(180, now + 0.18);
+                    gain.gain.setValueAtTime(0.08, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+                    osc.start(now);
+                    osc.stop(now + 0.2);
+                }
+            } catch (e) {
+                // Ignore audio errors if blocked by browser policy
+            }
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            document.getElementById('icon-sound-on').classList.toggle('hidden', !soundEnabled);
+            document.getElementById('icon-sound-off').classList.toggle('hidden', soundEnabled);
+            showToast(soundEnabled ? 'Đã bật âm thanh' : 'Đã tắt âm thanh', 'info');
+        }
+
+        /* =====================================================================
+           2. SVG ILLUSTRATIONS (Hình 22.1, Hình 22.2, Hình 22.3, Xương rồng, Thực tiễn)
+           ===================================================================== */
+        const SVG_ILLUSTRATIONS = {
+            // Hình 22.1: Khái quát quá trình quang hợp
+            hinh22_1: `
+                <div class="bg-gradient-to-b from-sky-50 via-white to-leaf-50 border-2 border-leaf-200 rounded-3xl p-4 sm:p-5 shadow-inner">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-leaf-100 text-leaf-800 font-bold text-sm">
+                            🖼️ Hình 22.1 (Minh họa SGK tr. 101)
+                        </span>
+                        <span class="text-xs sm:text-sm font-semibold text-slate-500">Quá trình quang hợp ở lá cây</span>
+                    </div>
+                    <svg viewBox="0 0 720 380" class="w-full h-auto max-h-[340px] mx-auto">
+                        <defs>
+                            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                                <stop offset="0%" stop-color="#e0f2fe"/>
+                                <stop offset="100%" stop-color="#f0fdf4"/>
+                            </linearGradient>
+                            <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0%" stop-color="#4ade80"/>
+                                <stop offset="100%" stop-color="#15803d"/>
+                            </linearGradient>
+                            <marker id="arrowBlue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="#0284c7"/>
+                            </marker>
+                            <marker id="arrowOrange" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="#ea580c"/>
+                            </marker>
+                            <marker id="arrowGreen" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="#16a34a"/>
+                            </marker>
+                            <marker id="arrowAmber" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="#d97706"/>
+                            </marker>
+                        </defs>
+                        <!-- Background -->
+                        <rect width="720" height="380" rx="20" fill="url(#skyGrad)"/>
+                        <!-- Soil -->
+                        <path d="M0 300 Q360 280 720 300 L720 380 L0 380 Z" fill="#a16207" opacity="0.25"/>
+                        <path d="M0 315 Q360 298 720 315 L720 380 L0 380 Z" fill="#854d0e" opacity="0.35"/>
+
+                        <!-- Sun -->
+                        <g class="sun-anim" transform="translate(105, 80)">
+                            <circle cx="0" cy="0" r="38" fill="#fbbf24"/>
+                            <circle cx="0" cy="0" r="28" fill="#fde047"/>
+                            <g stroke="#f59e0b" stroke-width="5" stroke-linecap="round">
+                                <line x1="0" y1="-55" x2="0" y2="-45"/>
+                                <line x1="0" y1="45" x2="0" y2="55"/>
+                                <line x1="-55" y1="0" x2="-45" y2="0"/>
+                                <line x1="45" y1="0" x2="55" y2="0"/>
+                                <line x1="-38" y1="-38" x2="-31" y2="-31"/>
+                                <line x1="31" y1="31" x2="38" y2="38"/>
+                                <line x1="38" y1="-38" x2="31" y2="-31"/>
+                                <line x1="-31" y1="31" x2="-38" y2="38"/>
+                            </g>
+                        </g>
+                        <text x="105" y="152" text-anchor="middle" font-size="16" font-weight="800" fill="#b45309">Ánh sáng mặt trời</text>
+
+                        <!-- Light rays to leaf -->
+                        <path d="M 155 100 L 295 160" stroke="#f59e0b" stroke-width="5" stroke-dasharray="9 6" marker-end="url(#arrowAmber)"/>
+                        <path d="M 165 82 L 315 135" stroke="#f59e0b" stroke-width="4" stroke-dasharray="9 6" marker-end="url(#arrowAmber)"/>
+
+                        <!-- Plant Stem & Roots -->
+                        <path d="M 360 305 Q 355 240 360 155" stroke="#15803d" stroke-width="10" fill="none" stroke-linecap="round"/>
+                        <!-- Roots -->
+                        <g stroke="#92400e" stroke-width="4" fill="none" stroke-linecap="round">
+                            <path d="M 360 305 Q 335 335 300 355"/>
+                            <path d="M 360 305 Q 355 340 350 365"/>
+                            <path d="M 360 305 Q 390 335 425 352"/>
+                            <path d="M 335 332 Q 320 355 315 368"/>
+                            <path d="M 385 330 Q 400 352 405 366"/>
+                        </g>
+
+                        <!-- Left Leaf -->
+                        <path d="M 358 215 C 280 215 240 165 255 130 C 295 125 345 160 358 215 Z" fill="url(#leafGrad)" stroke="#14532d" stroke-width="2.5"/>
+                        <path d="M 358 215 Q 305 170 265 140" stroke="#bbf7d0" stroke-width="2.5" fill="none"/>
+
+                        <!-- Right Big Leaf (Main focus) -->
+                        <path d="M 362 195 C 435 195 500 145 490 95 C 440 90 385 135 362 195 Z" fill="url(#leafGrad)" stroke="#14532d" stroke-width="3"/>
+                        <path d="M 362 195 Q 425 145 480 105" stroke="#bbf7d0" stroke-width="3" fill="none"/>
+                        <!-- Chloroplast dots inside leaf -->
+                        <circle cx="415" cy="145" r="5" fill="#bef264"/>
+                        <circle cx="435" cy="128" r="5" fill="#bef264"/>
+                        <circle cx="450" cy="140" r="5" fill="#bef264"/>
+                        <circle cx="400" cy="162" r="5" fill="#bef264"/>
+
+                        <!-- Top Leaf -->
+                        <path d="M 360 155 C 330 105 345 60 368 48 C 392 65 395 110 360 155 Z" fill="url(#leafGrad)" stroke="#14532d" stroke-width="2.5"/>
+
+                        <!-- Water Input Arrow -->
+                        <path d="M 270 350 Q 325 330 348 250" stroke="#0284c7" stroke-width="5" fill="none" marker-end="url(#arrowBlue)"/>
+                        <rect x="135" y="320" width="130" height="40" rx="12" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                        <text x="200" y="346" text-anchor="middle" font-size="16" font-weight="800" fill="#0369a1">💧 Nước (H₂O)</text>
+
+                        <!-- CO2 Input Arrow -->
+                        <path d="M 180 235 L 285 200" stroke="#ea580c" stroke-width="5" fill="none" marker-end="url(#arrowOrange)"/>
+                        <rect x="28" y="218" width="155" height="44" rx="12" fill="#ffedd5" stroke="#ea580c" stroke-width="2"/>
+                        <text x="105" y="245" text-anchor="middle" font-size="15" font-weight="800" fill="#c2410c">Khí CO₂ (vào lá)</text>
+
+                        <!-- O2 Output Arrow -->
+                        <path d="M 485 115 L 555 85" stroke="#0284c7" stroke-width="5" fill="none" marker-end="url(#arrowBlue)"/>
+                        <rect x="550" y="45" width="150" height="46" rx="12" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                        <text x="625" y="74" text-anchor="middle" font-size="16" font-weight="800" fill="#0369a1">Khí O₂ (thải ra)</text>
+
+                        <!-- Organic Matter / Glucose Output -->
+                        <path d="M 465 170 L 545 210" stroke="#16a34a" stroke-width="5" fill="none" marker-end="url(#arrowGreen)"/>
+                        <rect x="530" y="195" width="172" height="58" rx="14" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+                        <text x="616" y="220" text-anchor="middle" font-size="15" font-weight="800" fill="#166534">Chất hữu cơ</text>
+                        <text x="616" y="242" text-anchor="middle" font-size="14" font-weight="700" fill="#15803d">(Glucose / Tinh bột)</text>
+
+                        <!-- Chlorophyll badge -->
+                        <rect x="445" y="295" width="245" height="46" rx="14" fill="#fef9c3" stroke="#ca8a04" stroke-width="2"/>
+                        <text x="567" y="324" text-anchor="middle" font-size="15" font-weight="800" fill="#854d0e">🌿 Diệp lục trong lục lạp hấp thụ</text>
+                    </svg>
+                </div>
+            `,
+
+            // Hình 22.2: Mối quan hệ trao đổi chất & chuyển hóa năng lượng
+            hinh22_2: `
+                <div class="bg-gradient-to-r from-amber-50 via-white to-emerald-50 border-2 border-emerald-200 rounded-3xl p-4 sm:p-5 shadow-inner">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold text-sm">
+                            🖼️ Hình 22.2 (Minh họa SGK tr. 102)
+                        </span>
+                        <span class="text-xs sm:text-sm font-semibold text-slate-500">Trao đổi chất & Chuyển hóa năng lượng</span>
+                    </div>
+                    <svg viewBox="0 0 740 280" class="w-full h-auto max-h-[280px] mx-auto">
+                        <defs>
+                            <marker id="arrDark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="#15803d"/>
+                            </marker>
+                            <marker id="arrSun" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                                <path d="M 0 1 L 10 5 L 0 9 z" fill="#d97706"/>
+                            </marker>
+                        </defs>
+                        <!-- Left Inputs Box -->
+                        <rect x="18" y="35" width="195" height="90" rx="18" fill="#fef3c7" stroke="#f59e0b" stroke-width="2.5"/>
+                        <text x="115" y="72" text-anchor="middle" font-size="17" font-weight="800" fill="#b45309">☀️ QUANG NĂNG</text>
+                        <text x="115" y="100" text-anchor="middle" font-size="14" font-weight="600" fill="#92400e">(Năng lượng ánh sáng)</text>
+
+                        <rect x="18" y="155" width="195" height="95" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+                        <text x="115" y="190" text-anchor="middle" font-size="16" font-weight="800" fill="#0369a1">Chất lấy từ môi trường</text>
+                        <text x="115" y="218" text-anchor="middle" font-size="15" font-weight="700" fill="#0c4a6e">💧 Nước + Khí CO₂</text>
+
+                        <!-- Arrows into Leaf -->
+                        <path d="M 218 82 L 285 118" stroke="#d97706" stroke-width="5" marker-end="url(#arrSun)"/>
+                        <path d="M 218 200 L 285 168" stroke="#15803d" stroke-width="5" marker-end="url(#arrDark)"/>
+
+                        <!-- Center Leaf / Chloroplast -->
+                        <g transform="translate(370, 142)">
+                            <ellipse cx="0" cy="0" rx="82" ry="72" fill="#22c55e" stroke="#14532d" stroke-width="4"/>
+                            <ellipse cx="0" cy="0" rx="68" ry="56" fill="#4ade80" opacity="0.5"/>
+                            <text x="0" y="-15" text-anchor="middle" font-size="18" font-weight="800" fill="#ffffff">LÁ CÂY</text>
+                            <text x="0" y="10" text-anchor="middle" font-size="15" font-weight="700" fill="#f0fdf4">(Lục lạp / Diệp lục)</text>
+                            <text x="0" y="35" text-anchor="middle" font-size="13" font-weight="700" fill="#fef08a">⚡ Diễn ra đồng thời</text>
+                        </g>
+
+                        <!-- Arrows out of Leaf -->
+                        <path d="M 455 118 L 515 82" stroke="#d97706" stroke-width="5" marker-end="url(#arrSun)"/>
+                        <path d="M 455 168 L 515 200" stroke="#15803d" stroke-width="5" marker-end="url(#arrDark)"/>
+
+                        <!-- Right Outputs Box -->
+                        <rect x="520" y="28" width="205" height="102" rx="18" fill="#dcfce7" stroke="#16a34a" stroke-width="2.5"/>
+                        <text x="622" y="60" text-anchor="middle" font-size="16" font-weight="800" fill="#166534">🔋 HOÁ NĂNG</text>
+                        <text x="622" y="85" text-anchor="middle" font-size="14" font-weight="700" fill="#15803d">Tích trữ trong</text>
+                        <text x="622" y="110" text-anchor="middle" font-size="15" font-weight="800" fill="#14532d">Chất hữu cơ (Glucose)</text>
+
+                        <rect x="520" y="155" width="205" height="95" rx="18" fill="#e0f2fe" stroke="#0284c7" stroke-width="2.5"/>
+                        <text x="622" y="190" text-anchor="middle" font-size="16" font-weight="800" fill="#0369a1">Giải phóng ra môi trường</text>
+                        <text x="622" y="220" text-anchor="middle" font-size="16" font-weight="800" fill="#0284c7">💨 Khí Oxygen (O₂)</text>
+                    </svg>
+                </div>
+            `,
+
+            // Hình 22.3: Cấu tạo ngoài và giải phẫu lá cây
+            hinh22_3: `
+                <div class="bg-gradient-to-br from-leaf-50 via-white to-teal-50 border-2 border-leaf-200 rounded-3xl p-4 sm:p-5 shadow-inner">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-leaf-100 text-leaf-800 font-bold text-sm">
+                            🖼️ Hình 22.3 (Minh họa SGK tr. 102)
+                        </span>
+                        <span class="text-xs sm:text-sm font-semibold text-slate-500">Cấu tạo của lá phù hợp chức năng quang hợp</span>
+                    </div>
+                    <svg viewBox="0 0 760 310" class="w-full h-auto max-h-[300px] mx-auto">
+                        <!-- Left side: External Leaf Structure -->
+                        <rect x="10" y="10" width="340" height="290" rx="18" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="2"/>
+                        <text x="180" y="38" text-anchor="middle" font-size="16" font-weight="800" fill="#166534">1. Cấu tạo ngoài của lá</text>
+
+                        <!-- Leaf blade -->
+                        <path d="M 65 235 C 55 130 140 65 275 75 C 285 180 200 250 65 235 Z" fill="#4ade80" stroke="#15803d" stroke-width="3.5"/>
+                        <!-- Petiole -->
+                        <path d="M 35 255 Q 52 245 68 233" stroke="#15803d" stroke-width="7" stroke-linecap="round"/>
+                        <!-- Main vein -->
+                        <path d="M 68 233 Q 165 155 268 82" stroke="#dcfce7" stroke-width="4" fill="none"/>
+                        <!-- Secondary veins -->
+                        <path d="M 115 196 Q 110 155 135 125" stroke="#dcfce7" stroke-width="2.5" fill="none"/>
+                        <path d="M 165 156 Q 165 115 195 95" stroke="#dcfce7" stroke-width="2.5" fill="none"/>
+                        <path d="M 125 188 Q 165 195 205 185" stroke="#dcfce7" stroke-width="2.5" fill="none"/>
+                        <path d="M 175 148 Q 215 155 245 140" stroke="#dcfce7" stroke-width="2.5" fill="none"/>
+
+                        <!-- Callouts Left -->
+                        <line x1="120" y1="115" x2="80" y2="85" stroke="#1e293b" stroke-width="2"/>
+                        <rect x="20" y="58" width="98" height="30" rx="8" fill="#ffffff" stroke="#16a34a" stroke-width="2"/>
+                        <text x="69" y="79" text-anchor="middle" font-size="14" font-weight="800" fill="#166534">Phiến lá</text>
+
+                        <line x1="210" y1="185" x2="245" y2="235" stroke="#1e293b" stroke-width="2"/>
+                        <rect x="205" y="235" width="110" height="32" rx="8" fill="#ffffff" stroke="#0284c7" stroke-width="2"/>
+                        <text x="260" y="256" text-anchor="middle" font-size="14" font-weight="800" fill="#0369a1">Gân lá (Mạch dẫn)</text>
+
+                        <!-- Right side: Cross-section of leaf -->
+                        <rect x="370" y="10" width="380" height="290" rx="18" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+                        <text x="560" y="38" text-anchor="middle" font-size="16" font-weight="800" fill="#0f766e">2. Phóng to cấu tạo trong</text>
+
+                        <!-- Upper Epidermis -->
+                        <g fill="#bbf7d0" stroke="#15803d" stroke-width="1.8">
+                            <rect x="405" y="60" width="52" height="26" rx="4"/>
+                            <rect x="457" y="60" width="52" height="26" rx="4"/>
+                            <rect x="509" y="60" width="52" height="26" rx="4"/>
+                            <rect x="561" y="60" width="52" height="26" rx="4"/>
+                            <rect x="613" y="60" width="52" height="26" rx="4"/>
+                            <rect x="665" y="60" width="52" height="26" rx="4"/>
+                        </g>
+
+                        <!-- Mesophyll cells with Chloroplasts -->
+                        <g fill="#86efac" stroke="#15803d" stroke-width="1.8">
+                            <rect x="412" y="92" width="42" height="75" rx="10"/>
+                            <rect x="462" y="92" width="42" height="75" rx="10"/>
+                            <rect x="512" y="92" width="42" height="75" rx="10"/>
+                            <rect x="562" y="92" width="42" height="75" rx="10"/>
+                            <rect x="612" y="92" width="42" height="75" rx="10"/>
+                            <rect x="662" y="92" width="42" height="75" rx="10"/>
+                        </g>
+                        <!-- Chloroplast grains -->
+                        <g fill="#15803d">
+                            <circle cx="426" cy="112" r="5"/><circle cx="440" cy="135" r="5"/><circle cx="426" cy="152" r="5"/>
+                            <circle cx="476" cy="110" r="5"/><circle cx="488" cy="130" r="5"/><circle cx="478" cy="150" r="5"/>
+                            <circle cx="526" cy="115" r="5"/><circle cx="540" cy="138" r="5"/><circle cx="525" cy="154" r="5"/>
+                            <circle cx="576" cy="112" r="5"/><circle cx="590" cy="134" r="5"/><circle cx="578" cy="150" r="5"/>
+                            <circle cx="626" cy="115" r="5"/><circle cx="638" cy="140" r="5"/><circle cx="628" cy="155" r="5"/>
+                            <circle cx="676" cy="110" r="5"/><circle cx="690" cy="132" r="5"/><circle cx="678" cy="152" r="5"/>
+                        </g>
+
+                        <!-- Lower Epidermis with Stomata -->
+                        <g fill="#bbf7d0" stroke="#15803d" stroke-width="1.8">
+                            <rect x="405" y="185" width="70" height="26" rx="4"/>
+                            <rect x="530" y="185" width="75" height="26" rx="4"/>
+                            <rect x="660" y="185" width="57" height="26" rx="4"/>
+                        </g>
+                        <!-- Stoma 1 -->
+                        <ellipse cx="490" cy="198" rx="11" ry="15" fill="#22c55e" stroke="#14532d" stroke-width="2"/>
+                        <ellipse cx="515" cy="198" rx="11" ry="15" fill="#22c55e" stroke="#14532d" stroke-width="2"/>
+                        <!-- Stoma 2 -->
+                        <ellipse cx="620" cy="198" rx="11" ry="15" fill="#22c55e" stroke="#14532d" stroke-width="2"/>
+                        <ellipse cx="645" cy="198" rx="11" ry="15" fill="#22c55e" stroke="#14532d" stroke-width="2"/>
+
+                        <!-- Gas arrows through Stomata -->
+                        <text x="502" y="236" text-anchor="middle" font-size="13" font-weight="800" fill="#ea580c">↑ CO₂</text>
+                        <text x="632" y="236" text-anchor="middle" font-size="13" font-weight="800" fill="#0284c7">↓ O₂</text>
+
+                        <!-- Labels Right -->
+                        <rect x="388" y="252" width="155" height="34" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+                        <text x="465" y="274" text-anchor="middle" font-size="14" font-weight="800" fill="#166534">🟢 Lục lạp (Diệp lục)</text>
+
+                        <rect x="560" y="252" width="175" height="34" rx="10" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+                        <text x="647" y="274" text-anchor="middle" font-size="14" font-weight="800" fill="#0369a1">👄 Khí khổng (Biểu bì)</text>
+                    </svg>
+                </div>
+            `,
+
+            // Hình minh họa Câu 10: Xương rồng
+            xuongRong: `
+                <div class="bg-gradient-to-b from-amber-50 to-orange-50 border-2 border-amber-200 rounded-3xl p-4 flex flex-col sm:flex-row items-center gap-4">
+                    <svg viewBox="0 0 220 200" class="w-40 h-40 shrink-0 float-anim">
+                        <!-- Pot -->
+                        <polygon points="65,145 155,145 142,190 78,190" fill="#c2410c" stroke="#7c2d12" stroke-width="3"/>
+                        <rect x="58" y="135" width="104" height="16" rx="5" fill="#ea580c" stroke="#7c2d12" stroke-width="3"/>
+                        <!-- Main Cactus Stem -->
+                        <rect x="88" y="38" width="44" height="98" rx="22" fill="#22c55e" stroke="#14532d" stroke-width="3"/>
+                        <!-- Left Arm -->
+                        <path d="M 88 95 L 66 95 Q 52 95 52 80 L 52 65 Q 52 54 63 54 Q 74 54 74 65 L 74 78 L 88 78" fill="#22c55e" stroke="#14532d" stroke-width="3"/>
+                        <!-- Right Arm -->
+                        <path d="M 132 105 L 154 105 Q 168 105 168 90 L 168 72 Q 168 61 157 61 Q 146 61 146 72 L 146 88 L 132 88" fill="#22c55e" stroke="#14532d" stroke-width="3"/>
+                        <!-- Spines (Modified leaves) -->
+                        <g stroke="#fef08a" stroke-width="2.5" stroke-linecap="round">
+                            <line x1="88" y1="55" x2="78" y2="50"/><line x1="132" y1="60" x2="142" y2="55"/>
+                            <line x1="88" y1="115" x2="78" y2="115"/><line x1="132" y1="120" x2="142" y2="120"/>
+                            <line x1="52" y1="68" x2="43" y2="65"/><line x1="168" y1="78" x2="177" y2="75"/>
+                            <line x1="110" y1="38" x2="110" y2="28"/>
+                        </g>
+                        <!-- Flower -->
+                        <circle cx="110" cy="36" r="8" fill="#f43f5e"/>
+                        <circle cx="110" cy="36" r="3.5" fill="#fde047"/>
+                    </svg>
+                    <div class="text-left">
+                        <span class="inline-block px-3 py-1 rounded-full bg-amber-200 text-amber-900 font-bold text-sm mb-2">🌵 Quan sát thực tế</span>
+                        <p class="font-bold text-slate-800 scalable-text">Cây xương rồng sống ở vùng khô hạn có lá biến đổi thành gai nhọn, thân màu xanh mọng nước.</p>
+                    </div>
+                </div>
+            `,
+
+            // Hình minh họa Phần III: Cây xanh trong nhà
+            cayTrongNha: `
+                <div class="bg-gradient-to-r from-emerald-50 to-sky-50 border-2 border-emerald-200 rounded-3xl p-4 flex flex-col sm:flex-row items-center gap-5">
+                    <svg viewBox="0 0 260 180" class="w-48 h-36 shrink-0">
+                        <!-- Room wall & window -->
+                        <rect x="10" y="10" width="240" height="160" rx="16" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+                        <rect x="30" y="25" width="75" height="75" rx="8" fill="#bae6fd" stroke="#0284c7" stroke-width="3"/>
+                        <line x1="67" y1="25" x2="67" y2="100" stroke="#0284c7" stroke-width="2.5"/>
+                        <line x1="30" y1="62" x2="105" y2="62" stroke="#0284c7" stroke-width="2.5"/>
+                        <!-- Soft diffused light -->
+                        <polygon points="105,35 190,105 160,135 105,95" fill="#fde047" opacity="0.28"/>
+                        <!-- Lamp -->
+                        <line x1="190" y1="10" x2="190" y2="35" stroke="#475569" stroke-width="3"/>
+                        <path d="M 172 35 L 208 35 L 216 50 L 164 50 Z" fill="#f59e0b" stroke="#b45309" stroke-width="2"/>
+                        <polygon points="170,50 210,50 225,110 155,110" fill="#fef08a" opacity="0.35"/>
+                        <!-- Potted Plant -->
+                        <polygon points="162,128 218,128 210,162 170,162" fill="#d97706" stroke="#92400e" stroke-width="2.5"/>
+                        <path d="M 190 128 Q 170 95 152 88 Q 172 80 190 112" fill="#22c55e" stroke="#15803d" stroke-width="2"/>
+                        <path d="M 190 128 Q 210 95 228 88 Q 208 80 190 112" fill="#16a34a" stroke="#14532d" stroke-width="2"/>
+                        <path d="M 190 128 Q 180 80 190 66 Q 202 80 190 128" fill="#4ade80" stroke="#15803d" stroke-width="2"/>
+                    </svg>
+                    <div>
+                        <span class="inline-block px-3 py-1 rounded-full bg-emerald-200 text-emerald-900 font-bold text-sm mb-1.5">🏡 Vận dụng vào thực tiễn</span>
+                        <p class="font-semibold text-slate-700 text-base sm:text-lg">Liên hệ kiến thức về quang hợp và vai trò của lá cây để giải thích các hiện tượng trong đời sống hằng ngày.</p>
+                    </div>
+                </div>
+            `
+        };
+
+        /* =====================================================================
+           3. STATE MANAGEMENT & WORKSHEET DATA (EXACT ORDER OF WORKSHEET)
+           ===================================================================== */
+        const state = {
+            studentName: '',
+            studentClass: '',
+            currentStep: 0,
+            fontSizeScale: 1.0,
+            activeInputId: null,
+            checkedSteps: {}, // stepId -> boolean
+            answers: {
+                // Câu 1
+                c1_1: '', c1_2: '', c1_3: '', c1_4: '',
+                // Câu 2
+                c2_1: '', c2_2: '', c2_3: '',
+                // Câu 3
+                c3_1: '', c3_2: '', c3_3: '', c3_4: '', c3_5: '', c3_6: '',
+                // Câu 4
+                c4_top: '', c4_bot: '', c4_l1: '', c4_l2: '', c4_r1: '', c4_r2: '',
+                // Câu 5
+                c5_1: '', c5_2: '',
+                // Câu 6
+                c6_1: '', c6_2: '', c6_3: '', c6_4: '', c6_5: '',
+                // Câu 7
+                c7_1: '', c7_2: '', c7_3: '', c7_4: '',
+                // Câu 8
+                c8_1: '', c8_2: '', c8_3: '', c8_4: '', c8_5: '', c8_6: '', c8_7: '', c8_8: '',
+                // Câu 9
+                c9_1a: '', c9_1b: '',
+                c9_2a: '', c9_2b: '',
+                c9_3a: '', c9_3b: '',
+                c9_4a: '', c9_4b: '',
+                // Câu 10
+                c10: '',
+                // Câu 11, 12, 13
+                c11: '', c12: '', c13: ''
+            }
+        };
+
+        // Accepted answers dictionary for smart Vietnamese normalization
+        const answerKeys = {
+            c1_1: ['trao đổi chất', 'chuyển hóa năng lượng', 'chuyển hoá năng lượng'],
+            c1_2: ['chuyển hoá năng lượng', 'chuyển hóa năng lượng', 'trao đổi chất'],
+            c1_3: ['lá cây', 'lá'],
+            c1_4: ['lục lạp'],
+
+            c2_1: ['nước', 'carbon dioxide', 'co2'], // keyword check
+            c2_2: ['chất hữu cơ', 'glucose', 'oxygen', 'o2'],
+            c2_3: ['ánh sáng', 'diệp lục', 'lục lạp'],
+
+            c3_1: ['nước', 'h2o'],
+            c3_2: ['carbon dioxide', 'cacbon dioxit', 'co2'],
+            c3_3: ['ánh sáng', 'mặt trời'],
+            c3_4: ['diệp lục', 'lục lạp'],
+            c3_5: ['chất hữu cơ', 'glucose'],
+            c3_6: ['oxygen', 'oxi', 'o2'],
+
+            c4_top: ['ánh sáng', 'năng lượng ánh sáng', 'quang năng'],
+            c4_bot: ['diệp lục', 'lục lạp'],
+            c4_l1: ['nước', 'h2o', 'carbon dioxide', 'co2'],
+            c4_l2: ['carbon dioxide', 'co2', 'nước', 'h2o'],
+            c4_r1: ['glucose', 'chất hữu cơ', 'oxygen', 'o2'],
+            c4_r2: ['oxygen', 'o2', 'glucose', 'chất hữu cơ'],
+
+            c5_1: ['glucose', 'glucozơ'],
+            c5_2: ['tinh bột'],
+
+            c6_1: ['nước', 'carbon dioxide', 'co2'],
+            c6_2: ['oxygen', 'o2', 'oxi'],
+            c6_3: ['glucose', 'chất hữu cơ', 'tinh bột'],
+            c6_4: ['quang năng', 'ánh sáng'],
+            c6_5: ['hoá năng', 'hóa năng'],
+
+            c7_1: ['đồng thời', 'gắn liền', 'song song'],
+            c7_2: ['chất hữu cơ', 'glucose'],
+            c7_3: ['oxygen', 'khí oxygen', 'o2', 'oxi'],
+            c7_4: ['hoá năng', 'hóa năng'],
+
+            c8_1: ['lá cây', 'lá'],
+            c8_2: ['bản mỏng', 'bản rộng', 'dẹt', 'mỏng'],
+            c8_3: ['rộng', 'bản mỏng', 'dẹt', 'diện tích lớn', 'mỏng'],
+            c8_4: ['gân lá', 'mạch dẫn'],
+            c8_5: ['khí khổng'],
+            c8_6: ['lục lạp'],
+            c8_7: ['hấp thụ'],
+            c8_8: ['chuyển hoá', 'chuyển hóa']
+        };
+
+        // Steps in EXACT order of the worksheet
+        const steps = [
+            { id: 'intro', section: 'BẮT ĐẦU', title: 'Thông tin học sinh', short: 'Trang bìa', questions: [] },
+            { id: 'nv1_c1', section: 'I. KHÁI QUÁT VỀ QUANG HỢP', sub: 'Nhiệm vụ 1. Tìm hiểu khái niệm quang hợp', title: 'Câu 1: Điền từ khái quát', short: 'NV1 • Câu 1', questions: [1], checkable: true },
+            { id: 'nv1_c2', section: 'I. KHÁI QUÁT VỀ QUANG HỢP', sub: 'Nhiệm vụ 1. Tìm hiểu khái niệm quang hợp', title: 'Câu 2: Quan sát Hình 22.1', short: 'NV1 • Câu 2', questions: [2], checkable: true },
+            { id: 'nv1_c3', section: 'I. KHÁI QUÁT VỀ QUANG HỢP', sub: 'Nhiệm vụ 1. Tìm hiểu khái niệm quang hợp', title: 'Câu 3: Khái niệm quang hợp', short: 'NV1 • Câu 3', questions: [3], checkable: true },
+            { id: 'nv2_c4_5', section: 'I. KHÁI QUÁT VỀ QUANG HỢP', sub: 'Nhiệm vụ 2. Phương trình tổng quát', title: 'Câu 4 & Câu 5: Phương trình & Tinh bột', short: 'NV2 • Câu 4, 5', questions: [4, 5], checkable: true },
+            { id: 'nv3_c6', section: 'I. KHÁI QUÁT VỀ QUANG HỢP', sub: 'Nhiệm vụ 3. Trao đổi chất & Năng lượng', title: 'Câu 6: Quan sát Hình 22.2', short: 'NV3 • Câu 6', questions: [6], checkable: true },
+            { id: 'nv3_c7', section: 'I. KHÁI QUÁT VỀ QUANG HỢP', sub: 'Nhiệm vụ 3. Trao đổi chất & Năng lượng', title: 'Câu 7: Mối quan hệ', short: 'NV3 • Câu 7', questions: [7], checkable: true },
+            { id: 'nv4_c8', section: 'II. VAI TRÒ CỦA LÁ CÂY', sub: 'Nhiệm vụ 4. Đặc điểm & vai trò của lá cây', title: 'Câu 8: Đặc điểm của lá cây', short: 'NV4 • Câu 8', questions: [8], checkable: true },
+            { id: 'nv4_c9', section: 'II. VAI TRÒ CỦA LÁ CÂY', sub: 'Nhiệm vụ 4. Đặc điểm & vai trò của lá cây', title: 'Câu 9: Quan sát Hình 22.3 (Bảng 22.2)', short: 'NV4 • Câu 9', questions: [9], checkable: true },
+            { id: 'nv4_c10', section: 'II. VAI TRÒ CỦA LÁ CÂY', sub: 'Nhiệm vụ 4. Đặc điểm & vai trò của lá cây', title: 'Câu 10: Cây có lá biến đổi', short: 'NV4 • Câu 10', questions: [10], checkable: false },
+            { id: 'vd_c11_13', section: 'III. VẬN DỤNG THỰC TIỄN', sub: 'Vận dụng kiến thức vào thực tiễn', title: 'Câu 11, 12 & 13: Thực tiễn', short: 'Phần III • Câu 11-13', questions: [11, 12, 13], checkable: false },
+            { id: 'summary', section: 'HOÀN THÀNH', title: 'Tổng kết & Kết quả Phiếu học tập', short: 'Tổng kết', questions: [] }
+        ];
+
+        /* =====================================================================
+           4. HELPER FUNCTIONS
+           ===================================================================== */
+        function normalizeText(str) {
+            return (str || '')
+                .toLowerCase()
+                .replace(/hoá/g, 'hóa')
+                .replace(/co2|co₂/g, 'carbon dioxide')
+                .replace(/o2|o₂/g, 'oxygen')
+                .replace(/h2o|h₂o/g, 'nước')
+                .replace(/[.,;!?()]/g, ' ')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        function isExactMatch(userVal, validList) {
+            const norm = normalizeText(userVal);
+            if (!norm) return false;
+            return validList.some(v => normalizeText(v) === norm || norm.includes(normalizeText(v)));
+        }
+
+        function isKeywordMatch(userVal, keywords) {
+            const norm = normalizeText(userVal);
+            if (!norm) return false;
+            return keywords.some(k => norm.includes(normalizeText(k)));
+        }
+
+        function saveInput(key, value) {
+            state.answers[key] = value;
+            updateProgress();
+            updateSidebarStatus();
+        }
+
+        function setActiveInput(id) {
+            document.querySelectorAll('.active-target').forEach(el => el.classList.remove('active-target'));
+            state.activeInputId = id;
+            const el = document.getElementById(id);
+            if (el) el.classList.add('active-target');
+        }
+
+        function fillFromWordBank(word, fieldIds) {
+            playTone('click');
+            let targetId = state.activeInputId;
+            // If no active target or target not in current step's fieldIds, pick first empty
+            if (!targetId || !fieldIds.includes(targetId)) {
+                targetId = fieldIds.find(id => !state.answers[id] || state.answers[id].trim() === '') || fieldIds[0];
+            }
+            const el = document.getElementById(targetId);
+            if (el) {
+                el.value = word;
+                el.classList.remove('correct', 'incorrect');
+                saveInput(targetId, word);
+                // Move focus to next empty field automatically
+                const nextEmpty = fieldIds.find(id => !state.answers[id] || state.answers[id].trim() === '');
+                if (nextEmpty) {
+                    setActiveInput(nextEmpty);
+                } else {
+                    setActiveInput(targetId);
+                }
+            }
+        }
+
+        function renderWordBank(words, fieldIds) {
+            const idsStr = JSON.stringify(fieldIds).replace(/"/g, "'");
+            return `
+                <div class="bg-sky-50/90 border-2 border-sky-200 rounded-2xl p-4 mb-5">
+                    <div class="flex items-center gap-2 text-sky-800 font-bold text-sm sm:text-base mb-2.5">
+                        <span>✨</span>
+                        <span>Ngân hàng từ gợi ý (Bấm vào từ để điền nhanh hoặc tự gõ vào ô):</span>
+                    </div>
+                    <div class="flex flex-wrap gap-2.5">
+                        ${words.map(w => `
+                            <button type="button" onclick="fillFromWordBank('${w}', ${idsStr})"
+                                class="word-chip px-4 py-2 rounded-xl bg-white border-2 border-sky-300 hover:border-leaf-500 hover:bg-leaf-50 text-slate-800 font-bold text-base sm:text-lg shadow-xs">
+                                ${w}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderInput(id, placeholder = '................', widthClass = 'w-44 sm:w-52') {
+            const val = (state.answers[id] || '').replace(/"/g, '&quot;');
+            return `<input type="text" id="${id}" value="${val}" placeholder="${placeholder}"
+                onfocus="setActiveInput('${id}')"
+                oninput="saveInput('${id}', this.value); this.classList.remove('correct','incorrect')"
+                class="blank-input ${widthClass}" autocomplete="off" />`;
+        }
+
+        function showToast(msg, type = 'success') {
+            const box = document.getElementById('toast-box');
+            const inner = document.getElementById('toast-inner');
+            const icon = document.getElementById('toast-icon');
+            const text = document.getElementById('toast-msg');
+
+            const styles = {
+                success: { cls: 'bg-leaf-50 border-leaf-500 text-leaf-900', ic: '🎉' },
+                warning: { cls: 'bg-amber-50 border-amber-500 text-amber-900', ic: '💡' },
+                error:   { cls: 'bg-red-50 border-red-400 text-red-900', ic: '🧐' },
+                info:    { cls: 'bg-sky-50 border-sky-400 text-sky-900', ic: 'ℹ️' }
+            };
+            const st = styles[type] || styles.info;
+            inner.className = `rounded-2xl shadow-2xl px-5 py-4 font-bold text-base sm:text-lg flex items-center gap-3 border-2 ${st.cls}`;
+            icon.textContent = st.ic;
+            text.textContent = msg;
+
+            box.classList.remove('translate-x-[120%]');
+            clearTimeout(window._toastTimer);
+            window._toastTimer = setTimeout(() => {
+                box.classList.add('translate-x-[120%]');
+            }, 3200);
+        }
+
+        function openModal(title, body, onConfirm) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-body').textContent = body;
+            const btn = document.getElementById('modal-confirm-btn');
+            btn.onclick = () => { closeModal(); onConfirm(); };
+            const modal = document.getElementById('custom-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('custom-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        /* =====================================================================
+           5. STEP RENDERING (EXACT CONTENT FROM PHT_BAI 22.docx)
+           ===================================================================== */
+        function renderStep() {
+            const step = steps[state.currentStep];
+            const container = document.getElementById('step-container');
+            state.activeInputId = null;
+
+            let html = '';
+
+            // Common Section Header Badge
+            const headerBadge = step.sub ? `
+                <div class="mb-5">
+                    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-leaf-700 text-white font-extrabold text-sm sm:text-base tracking-wide shadow-xs mb-2">
+                        <span>🌿</span> ${step.section}
+                    </div>
+                    <h2 class="scalable-heading font-extrabold text-leaf-900">${step.sub}</h2>
+                </div>
+            ` : '';
+
+            switch (step.id) {
+                /* ---------- BƯỚC 0: TRANG BÌA & THÔNG TIN HỌC SINH ---------- */
+                case 'intro':
+                    html = `
+                        <div class="step-animate bg-white rounded-3xl shadow-xl border-2 border-leaf-200 overflow-hidden">
+                            <div class="bg-gradient-to-br from-leaf-700 via-emerald-600 to-teal-600 p-6 sm:p-10 text-white text-center relative overflow-hidden">
+                                <div class="text-5xl sm:text-6xl mb-3 float-anim inline-block">🌱☀️🍃</div>
+                                <p class="uppercase tracking-widest font-bold text-leaf-100 text-sm sm:text-base mb-1">Phiếu Học Tập Chuẩn Bị Bài</p>
+                                <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight mb-3">BÀI 22. QUANG HỢP Ở THỰC VẬT</h2>
+                                <p class="text-leaf-50 text-base sm:text-xl max-w-2xl mx-auto">Thực hiện lần lượt 4 nhiệm vụ và 13 câu hỏi tương tác để khám phá cách cây xanh tạo ra thức ăn và khí oxygen cho Trái Đất!</p>
+                            </div>
+
+                            <div class="p-6 sm:p-10">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                                    <div>
+                                        <label class="block font-extrabold text-slate-700 text-lg sm:text-xl mb-2">👤 Họ và tên học sinh:</label>
+                                        <input type="text" id="input-name" value="${state.studentName}" placeholder="Nhập họ và tên của em..."
+                                            oninput="state.studentName = this.value; updateHeaderStudent()"
+                                            class="w-full px-5 py-4 rounded-2xl border-2 border-slate-300 focus:border-leaf-600 focus:ring-4 focus:ring-leaf-100 text-xl font-bold text-slate-800 outline-none transition" />
+                                    </div>
+                                    <div>
+                                        <label class="block font-extrabold text-slate-700 text-lg sm:text-xl mb-2">🏫 Lớp:</label>
+                                        <input type="text" id="input-class" value="${state.studentClass}" placeholder="Ví dụ: 7A1"
+                                            oninput="state.studentClass = this.value; updateHeaderStudent()"
+                                            class="w-full px-5 py-4 rounded-2xl border-2 border-slate-300 focus:border-leaf-600 focus:ring-4 focus:ring-leaf-100 text-xl font-bold text-slate-800 outline-none transition" />
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                                    <div class="p-4 rounded-2xl bg-leaf-50 border border-leaf-200">
+                                        <div class="font-extrabold text-leaf-800 text-lg mb-1">I. Khái quát quang hợp</div>
+                                        <p class="text-slate-600 text-base">Nhiệm vụ 1, 2, 3 (Câu 1 → Câu 7)</p>
+                                    </div>
+                                    <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200">
+                                        <div class="font-extrabold text-emerald-800 text-lg mb-1">II. Vai trò của lá cây</div>
+                                        <p class="text-slate-600 text-base">Nhiệm vụ 4 (Câu 8 → Câu 10)</p>
+                                    </div>
+                                    <div class="p-4 rounded-2xl bg-sky-50 border border-sky-200">
+                                        <div class="font-extrabold text-sky-800 text-lg mb-1">III. Vận dụng thực tiễn</div>
+                                        <p class="text-slate-600 text-base">Giải thích & Đề xuất (Câu 11 → 13)</p>
+                                    </div>
+                                </div>
+
+                                <div class="text-center">
+                                    <button onclick="nextStep()" class="px-10 py-4 rounded-2xl bg-gradient-to-r from-leaf-600 to-emerald-600 hover:from-leaf-700 hover:to-emerald-700 text-white font-extrabold text-xl sm:text-2xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5">
+                                        🚀 Bắt đầu làm bài ngay
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                /* ---------- CÂU 1 ---------- */
+                case 'nv1_c1':
+                    html = `
+                        <div class="step-animate">
+                            ${headerBadge}
+                            <div class="bg-white rounded-3xl shadow-md border-2 border-slate-200 p-6 sm:p-8">
+                                <h3 class="scalable-heading font-extrabold text-slate-800 mb-4 flex items-start gap-3">
+                                    <span class="px-3.5 py-1 rounded-xl bg-leaf-600 text-white shrink-0">Câu 1</span>
+                                    <span>Đọc thông tin phần I trong SGK và điền từ thích hợp vào chỗ trống.</span>
+                                </h3>
+
+                                ${renderWordBank(['lục lạp', 'trao đổi chất', 'lá cây', 'chuyển hoá năng lượng'], ['c1_1', 'c1_2', 'c1_3', 'c1_4'])}
+
+                                <div class="scalable-text bg-leaf-50/70 border-2 border-leaf-200 rounded-2xl p-6 text-slate-800 font-medium leading-loose">
+                                    Quang hợp là một trong những quá trình ${renderInput('c1_1', '(1)', 'w-48 sm:w-56')} và ${renderInput('c1_2', '(2)', 'w-56 sm:w-64')} quan trọng ở thực vật.
+                                    Quá trình này diễn ra chủ yếu ở ${renderInput('c1_3', '(3)', 'w-40 sm:w-48')}, trong bào quan quang hợp là ${renderInput('c1_4', '(4)', 'w-40 sm:w-48')}.
+                                </div>
+
+                                <div id="hint-box" class="hidden mt-5 p-5 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 scalable-text">
+                                    <strong>💡 Đáp án gợi ý:</strong> (1) <em>trao đổi chất</em> • (2) <em>chuyển hoá năng lượng</em> • (3) <em>lá cây</em> • (4) <em>lục lạp</em>.
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                /* ---------- CÂU 2 ---------- */
+                case 'nv1_c2':
+                    html = `
+                        <div class="step-animate space-y-5">
+                            ${headerBadge}
+                            ${SVG_ILLUSTRATIONS.hinh22_1}
+                            <div class="bg-white rounded-3xl shadow-md border-2 border-slate-200 p-6 sm:p-8">
+                                <h3 class="scalable-heading font-extrabold text-slate-800 mb-4 flex items-start gap-3">
+                                    <span class="px-3.5 py-1 rounded-xl bg-leaf-600 text-white shrink-0">Câu 2</span>
+                                    <span>Quan sát Hình 22.1 SGK trang 101 và hoàn thành bảng sau:</span>
+                                </h3>
+
+                                ${renderWordBank(['Nước, khí carbon dioxide', 'Chất hữu cơ (glucose), khí oxygen', 'Ánh sáng, diệp lục'], ['c2_1', 'c2_2', 'c2_3'])}
+
+                                <div class="overflow-x-auto rounded-2xl border-2 border-leaf-300">
+                                    <table class="w-full text-left border-collapse">
+                                        <thead>
+                                            <tr class="bg-leaf-700 text-white scalable-text">
+                                                <th class="p-4 border-r border-leaf-600 w-1/3">Nguyên liệu (chất lấy vào)</th>
+                                                <th class="p-4 border-r border-leaf-600 w-1/3">Sản phẩm (chất tạo ra)</th>
+                                                <th class="p-4 w-1/3">Các yếu tố tham gia</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="bg-white scalable-text">
+                                            <tr>
+                                                <td class="p-3 border-r border-slate-200 align-top">
+                                                    <textarea id="c2_1" rows="3" onfocus="setActiveInput('c2_1')" oninput="saveInput('c2_1', this.value); this.classList.remove('correct','incorrect')"
+                                                        placeholder="Nhập nguyên liệu..." class="table-input">${state.answers.c2_1}</textarea>
+                                                </td>
+                                                <td class="p-3 border-r border-slate-200 align-top">
+                                                    <textarea id="c2_2" rows="3" onfocus="setActiveInput('c2_2')" oninput="saveInput('c2_2', this.value); this.classList.remove('correct','incorrect')"
+                                                        placeholder="Nhập sản phẩm..." class="table-input">${state.answers.c2_2}</textarea>
+                                                </td>
+                                                <td class="p-3 align-top">
+                                                    <textarea id="c2_3" rows="3" onfocus="setActiveInput('c2_3')" oninput="saveInput('c2_3', this.value); this.classList.remove('correct','incorrect')"
+                                                        placeholder="Nhập yếu tố tham gia..." class="table-input">${state.answers.c2_3}</textarea>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div id="hint-box" class="hidden mt-5 p-5 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 scalable-text">
+                                    <strong>💡 Đáp án gợi ý:</strong><br>
+                                    • <strong>Nguyên liệu:</strong> Nước, khí carbon dioxide (CO₂).<br>
+                                    • <strong>Sản phẩm:</strong> Chất hữu cơ (glucose), khí oxygen (O₂).<br>
+                                    • <strong>Các yếu tố tham gia:</strong> Ánh sáng (năng lượng ánh sáng), diệp lục (lục lạp).
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                /* ---------- CÂU 3 ---------- */
+                case 'nv1_c3':
+                    html = `
+                        <div class="step-animate">
+                            ${headerBadge}
+                            <div class="bg-white rounded-3xl shadow-md border-2 border-slate-200 p-6 sm:p-8">
+                                <h3 class="scalable-heading font-extrabold text-slate-800 mb-4 flex items-start gap-3">
+                                    <span class="px-3.5 py-1 rounded-xl bg-leaf-600 text-white shrink-0">Câu 3</span>
+                                    <span>Dựa vào kết quả ở câu 2, hoàn thành khái niệm quang hợp.</span>
+                                </h3>
+
+                                ${renderWordBank(['carbon dioxide', 'diệp lục', 'nước', 'oxygen', 'ánh sáng', 'chất hữu cơ'], ['c3_1', 'c3_2', 'c3_3', 'c3_4', 'c3_5', 'c3_6'])}
+
+                                <div class="scalable-text bg-leaf-50/70 border-2 border-leaf-200 rounded-2xl p-6 text-slate-800 font-medium leading-loose">
+                                    Quang hợp là quá trình lá cây sử dụng ${renderInput('c3_1', '(1)', 'w-36 sm:w-44')} và khí ${renderInput('c3_2', '(2)', 'w-48 sm:w-56')}
+                                    nhờ năng lượng ${renderInput('c3_3', '(3)', 'w-40 sm:w-48')} được ${renderInput('c3_4', '(4)', 'w-40 sm:w-48')} hấp thụ
+                                    để tổng hợp ${renderInput('c3_5', '(5)', 'w-44 sm:w-52')} và giải phóng khí ${renderInput('c3_6', '(6)', 'w-40 sm:w-48')}.
+                                </div>
+
+                                <div id="hint-box" class="hidden mt-5 p-5 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 scalable-text">
+                                    <strong>💡 Đáp án gợi ý:</strong> (1) <em>nước</em> • (2) <em>carbon dioxide</em> • (3) <em>ánh sáng</em> • (4) <em>diệp lục</em> • (5) <em>chất hữu cơ</em> • (6) <em>oxygen</em>.
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                /* ---------- CÂU 4 & CÂU 5 ---------- */
+                case 'nv2_c4_5':
+                    html = `
+                        <div class="step-animate space-y-6">
+                            ${headerBadge}
+
+                            <!-- Câu 4 -->
+                            <div class="bg-white rounded-3xl shadow-md border-2 border-slate-200 p-6 sm:p-8">
+                                <h3 class="scalable-heading font-extrabold text-slate-800 mb-4 flex items-start gap-3">
+                                    <span class="px-3.5 py-1 rounded-xl bg-leaf-600 text-white shrink-0">Câu 4</span>
+                                    <span>Hoàn thành phương trình tổng quát của quá trình quang hợp.</span>
+                                </h3>
+
+                                ${renderWordBank(['Nước', 'Carbon dioxide', 'Ánh sáng', 'Diệp lục', 'Glucose', 'Oxygen'], ['c4_l1', 'c4_l2', 'c4_top', 'c4_bot', 'c4_r1', 'c4_r2'])}
+
+                                <div class="bg-gradient-to-r from-sky-50 via-amber-50/50 to-leaf-50 border-2 border-leaf-300 rounded-3xl p-5 sm:p-7 overflow-x-auto">
+                                    <div class="flex flex-col lg:flex-row items-center justify-center gap-4 scalable-text font-bold">
+                                        <!-- Vế trái -->
+                                        <div class="flex flex-wrap items-center justify-center gap-2">
+                                            ${renderInput('c4_l1', 'Chất 1', 'w-40 sm:w-44')}
+                                            <span class="text-2xl font-extrabold text-leaf-700">+</span>
+                                            ${renderInput('c4_l2', 'Chất 2', 'w-44 sm:w-52')}
+                                        </div>
+
+                                        <!-- Mũi tên có điều kiện trên / dưới -->
+                                        <div class="flex flex-col items-center justify-center mx-2 my-2">
+                                            ${renderInput('c4_top', 'Điều kiện trên', 'w-40 sm:w-44')}
+                                            <div class="flex items-center my-1.5 w-full justify-center">
+                                                <div class="h-1.5 w-32 sm:w-40 bg-leaf-700 rounded-l-full"></div>
+                                                <div class="w-0 h-0 border-t-[9px] border-t-transparent border-b-[9px] border-b-transparent border-l-[16px] border-l-leaf-700"></div>
+                                            </div>
+                                            ${renderInput('c4_bot', 'Điều kiện dưới', 'w-40 sm:w-44')}
+                                        </div>
+
+                                        <!-- Vế phải -->
+                                        <div class="flex flex-wrap items-center justify-center gap-2">
+                                            ${renderInput('c4_r1', 'Sản phẩm 1', 'w-40 sm:w-48')}
+                                            <span class="text-2xl font-extrabold text-leaf-700">+</span>
+                                            ${renderInput('c4_r2', 'Sản phẩm 2', 'w-40 sm:w-44')}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Câu 5 -->
+                            <div class="bg-white rounded-3xl shadow-md border-2 border-slate-200 p-6 sm:p-8">
+                                <h3 class="scalable-heading font-extrabold text-slate-800 mb-4 flex items-start gap-3">
+                                    <span class="px-3.5 py-1 rounded-xl bg-leaf-600 text-white shrink-0">Câu 5</span>
+                                    <span>Điền từ thích hợp vào chỗ trống.</span>
+                                </h3>
+
+                                ${renderWordBank(['tinh bột', 'glucose'], ['c5_1', 'c5_2'])}
+
+                                <div class="scalable-text bg-leaf-50/70 border-2 border-leaf-200 rounded-2xl p-6 text-slate-800 font-medium leading-loose">
+                                    Các phân tử ${renderInput('c5_1', '(1)', 'w-40 sm:w-48')} tạo thành trong quang hợp liên kết với nhau hình thành nên ${renderInput('c5_2', '(2)', 'w-40 sm:w-48')}, là chất dự trữ đặc trưng ở thực vật.
+                                </div>
+
+                                <div id="hint-box" class="hidden mt-5 p-5 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 scalable-text">
+                                    <strong>💡 Đáp án gợi ý:</strong><br>
+                                    • <strong>Câu 4:</strong> Nước + Carbon dioxide ⟶ (trên: <em>Ánh sáng</em> / dưới: <em>Diệp lục</em>) ⟶ Glucose + Oxygen.<br>
+                                    • <strong>Câu 5:</strong> (1) <em>glucose</em> • (2) <em>tinh bột</em>.
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                /* ---------- CÂU 6 ---------- */
+                case 'nv3_c6':
+                    html = `
+                        <div class="step-animate space-y-5">
+                            ${headerBadge}
+                            ${SVG_ILLUSTRATIONS.hinh22_2}
+                            <div class="bg-white rounded-3xl shadow-md border-2 border-slate-200 p-6 sm:p-8">
+                                <h3 class="scalable-heading font-extrabold text-slate-800 mb-4 flex items-start gap-3">
+                                    <span class="px-3.5 py-1 rounded-xl bg-leaf-600 text-white shrink-0">Câu 6</span>
+                                    <span>Quan sát Hình 22.2 và đọc thông tin SGK trang 102, hoàn thành bảng sau:</span>
+                                </h3>
+
+                                ${renderWordBank(['Nước và khí carbon dioxide', 'Khí oxygen', 'Glucose (chất hữu cơ)', 'Quang năng (năng lượng ánh sáng)', 'Hoá năng'], ['c6_1', 'c6_2', 'c6_3', 'c6_4', 'c6_5'])}
+
+                                <div class="overflow-x-auto rounded-2xl border-2 border-emerald-300">
+                                    <table class="w-full text-left border-collapse scalable-text">
+                                        <thead>
+                                            <tr class="bg-emerald-700 text-white">
+                                                <th class="p-4 border-r border-emerald-600 w-2/5">Nội dung</th>
+                                                <th class="p-4 w-3/5">Kết quả tìm hiểu</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-200 bg-white">
+                                            ${[
+                                                ['c6_1', 'Các chất lấy từ môi trường'],
+                                                ['c6_2', 'Chất được giải phóng ra môi trường'],
+                                                ['c6_3', 'Chất hữu cơ được tổng hợp'],
+                                                ['c6_4', 'Dạng năng lượng được hấp thụ'],
+                                                ['c6_5', 'Dạng năng lượng được chuyển hoá và tích trữ']
+                                            ].map(([id, label]) => `
+                                                <tr class="hover:bg-leaf-50/40">
+                                                    <td class="p-4 font-bold text-slate-800 border-r border-slate-200">${label}</td>
+                                                    <td class="p-3">
+                                                        <input type="text" id="${id}" value="${(state.answers[id] || '').replace(/"/g, '&quot;')}"
+                                                            onfocus="setActiveInput('${id}')"
+                                                            oninput="saveInput('${id}', this.value); this.classList.remove('correct','incorrect')"
+                                                            placeholder="Nhập kết quả..." class="table-input" autocomplete="off" />
+                                                    </td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div id="hint-box" class="hidden mt-5 p-5 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 scalable-text">
+                                    <strong>💡 Đáp án gợi ý:</strong><br>
+                                    1. Nước và khí carbon dioxide • 2. Khí oxygen • 3. Glucose (chất hữu cơ) • 4. Quang năng (năng lượng ánh sáng) • 5. Hoá năng (trong các hợp chất hữu cơ).
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                /* ---------- CÂU 7 ---------- */
+                case 'nv3_c7':
+                    html = `
+                        <div class="step-animate">
+                            ${headerBadge}
+                            <div class="bg-white rounded-3xl shadow-md border-2 border-slate-200 p-6 sm:p-8">
+                                <h3 class="scalable-heading font-extrabold text-slate-800 mb-4 flex items-start gap-3">
+                                    <span class="px-3.5 py-1 rounded-xl bg-leaf-600 text-white shrink-0">Câu 7</span>
+                                    <span>Điền từ thích hợp vào chỗ trống.</span>
+                                </h3>
+
+                                ${renderWordBank(['hoá năng', 'đồng thời', 'oxygen', 'chất hữu cơ'], ['c7_1', 'c7_2', 'c7_3', 'c7_4'])}
+
+                                <div class="scalable-text bg-leaf-50/70 border-2 border-leaf-200 rounded-2xl p-6 text-slate-800 font-medium leading-loose">
+                                    Trong quá trình quang hợp, trao đổi chất và chuyển hoá năng lượng diễn ra ${renderInput('c7_1', '(1)', 'w-44 sm:w-52')}.
+                                    Nước và carbon dioxide được lấy từ môi trường ngoài để tổng hợp ${renderInput('c7_2', '(2)', 'w-44 sm:w-52')} và giải phóng ${renderInput('c7_3', '(3)', 'w-40 sm:w-48')}.
+                                    Đồng thời, quang năng được chuyển hoá thành ${renderInput('c7_4', '(4)', 'w-40 sm:w-48')} dự trữ trong các hợp chất hữu cơ.
+                                </div>
+
+                                <div id="hint-box" class="hidden mt-5 p-5 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 scalable-text">
+                                    <strong>💡 Đáp án gợi ý:</strong> (1) <em>đồng thời</em> • (2) <em>chất hữu cơ</em> • (3) <em>oxygen</em> • (4) <em>hoá năng</em>.
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                /* ---------- CÂU 8 ---------- */
+                case 'nv4_c8':
+                    html = `
+                        <div class="step-animate">
+                            ${headerBadge}
+                            <div class="bg-white rounded-3xl shadow-md border-2 border-slate-200 p-6 sm:p-8">
+                                <h3 class="scalable-heading font-extrabold text-slate-800 mb-4 flex items-start gap-3">
+                                    <span class="px-3.5 py-1 rounded-xl bg-leaf-600 text-white shrink-0">Câu 8</span>
+                                    <span>Đọc thông tin SGK trang 102 và hoàn thành các nội dung sau:</span>
+                                </h3>
+
+                                ${renderWordBank(['lá cây', 'bản mỏng', 'rộng', 'gân lá', 'khí khổng', 'lục lạp', 'hấp thụ', 'chuyển hoá'], ['c8_1', 'c8_2', 'c8_3', 'c8_4', 'c8_5', 'c8_6', 'c8_7', 'c8_8'])}
+
+                                <ul class="scalable-text space-y-4 bg-leaf-50/70 border-2 border-leaf-200 rounded-2xl p-6 text-slate-800 font-medium">
+                                    <li>• Cơ quan chủ yếu thực hiện quá trình quang hợp là: ${renderInput('c8_1', '(1)', 'w-36 sm:w-44')}.</li>
+                                    <li>• Phiến lá có dạng ${renderInput('c8_2', '(2)', 'w-36 sm:w-44')}, ${renderInput('c8_3', '(3)', 'w-32 sm:w-40')} giúp tăng diện tích bề mặt tiếp xúc với ánh sáng.</li>
+                                    <li>• Trên phiến lá có nhiều ${renderInput('c8_4', '(4)', 'w-36 sm:w-44')} giúp vận chuyển nguyên liệu và sản phẩm của quang hợp.</li>
+                                    <li>• Lớp biểu bì lá có nhiều ${renderInput('c8_5', '(5)', 'w-36 sm:w-44')} giúp trao đổi khí với môi trường.</li>
+                                    <li>• Bên trong lá có nhiều ${renderInput('c8_6', '(6)', 'w-36 sm:w-44')} chứa các hạt diệp lục.</li>
+                                    <li>• Diệp lục có khả năng ${renderInput('c8_7', '(7)', 'w-36 sm:w-44')} và ${renderInput('c8_8', '(8)', 'w-40 sm:w-48')} năng lượng ánh sáng.</li>
+                                </ul>
+
+                                <div id="hint-box" class="hidden mt-5 p-5 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 scalable-text">
+                                    <strong>💡 Đáp án gợi ý:</strong> (1) <em>lá cây</em> • (2) <em>bản mỏng</em> • (3) <em>rộng</em> • (4) <em>gân lá</em> • (5) <em>khí khổng</em> • (6) <em>lục lạp</em> • (7) <em>hấp thụ</em> • (8) <em>chuyển hoá</em>.
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                /* ---------- CÂU 9 ---------- */
+                case 'nv4_c9':
+                    html = `
+                        <div class="step-animate space-y-5">
+                            ${headerBadge}
+                            ${SVG_ILLUSTRATIONS.hinh22_3}
+                            <div class="bg-white rounded-3xl shadow-md border-2 border-slate-200 p-6 sm:p-8">
+                                <h3 class="scalable-heading font-extrabold text-slate-800 mb-4 flex items-start gap-3">
+                                    <span class="px-3.5 py-1 rounded-xl bg-leaf-600 text-white shrink-0">Câu 9</span>
+                                    <span>Quan sát Hình 22.3 và hoàn thành bảng theo mẫu Bảng 22.2 SGK.</span>
+                                </h3>
+
+                                <div class="overflow-x-auto rounded-2xl border-2 border-leaf-300">
+                                    <table class="w-full text-left border-collapse scalable-text">
+                                        <thead>
+                                            <tr class="bg-leaf-700 text-white">
+                                                <th class="p-4 border-r border-leaf-600 w-1/5">Bộ phận</th>
+                                                <th class="p-4 border-r border-leaf-600 w-2/5">Đặc điểm</th>
+                                                <th class="p-4 w-2/5">Vai trò trong quang hợp</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-slate-200 bg-white">
+                                            ${[
+                                                ['Phiến lá', 'c9_1a', 'c9_1b', 'Dạng bản mỏng, rộng...', 'Giúp thu nhận nhiều ánh sáng...'],
+                                                ['Lục lạp', 'c9_2a', 'c9_2b', 'Chứa nhiều sắc tố diệp lục...', 'Hấp thụ và chuyển hoá ánh sáng...'],
+                                                ['Gân lá', 'c9_3a', 'c9_3b', 'Có các mạch dẫn...', 'Vận chuyển nước và chất hữu cơ...'],
+                                                ['Khí khổng', 'c9_4a', 'c9_4b', 'Nằm ở lớp biểu bì lá...', 'Trao đổi khí CO₂, O₂ với môi trường...']
+                                            ].map(([part, idA, idB, phA, phB]) => `
+                                                <tr class="hover:bg-leaf-50/40">
+                                                    <td class="p-4 font-extrabold text-leaf-900 border-r border-slate-200 bg-leaf-50/50">${part}</td>
+                                                    <td class="p-3 border-r border-slate-200">
+                                                        <textarea id="${idA}" rows="2" oninput="saveInput('${idA}', this.value); this.classList.remove('correct','incorrect')"
+                                                            placeholder="${phA}" class="table-input">${state.answers[idA]}</textarea>
+                                                    </td>
+                                                    <td class="p-3">
+                                                        <textarea id="${idB}" rows="2" oninput="saveInput('${idB}', this.value); this.classList.remove('correct','incorrect')"
+                                                            placeholder="${phB}" class="table-input">${state.answers[idB]}</textarea>
+                                                    </td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div id="hint-box" class="hidden mt-5 p-5 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 scalable-text space-y-2">
+                                    <strong>💡 Đáp án mẫu Bảng 22.2:</strong>
+                                    <p>• <strong>Phiến lá:</strong> Có dạng bản mỏng, diện tích bề mặt lớn ⟶ Giúp thu nhận được nhiều ánh sáng.</p>
+                                    <p>• <strong>Lục lạp:</strong> Chứa sắc tố diệp lục ⟶ Hấp thụ và chuyển hoá năng lượng ánh sáng.</p>
+                                    <p>• <strong>Gân lá:</strong> Có các mạch dẫn phân bố dày đặc ⟶ Vận chuyển nước đến tế bào quang hợp và vận chuyển chất hữu cơ đi nuôi cây.</p>
+                                    <p>• <strong>Khí khổng:</strong> Tập trung ở lớp biểu bì lá, đóng mở được ⟶ Giúp khí CO₂ đi vào và khí O₂ thoát ra (trao đổi khí).</p>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                /* ---------- CÂU 10 ---------- */
+                case 'nv4_c10':
+                    html = `
+                        <div class="step-animate space-y-5">
+                            ${headerBadge}
+                            ${SVG_ILLUSTRATIONS.xuongRong}
+                            <div class="bg-white rounded-3xl shadow-md border-2 border-slate-200 p-6 sm:p-8">
+                                <h3 class="scalable-heading font-extrabold text-slate-800 mb-4 flex items-start gap-3">
+                                    <span class="px-3.5 py-1 rounded-xl bg-leaf-600 text-white shrink-0">Câu 10</span>
+                                    <span>Ở các loài cây có lá biến đổi như xương rồng, cành giao,... bộ phận nào trên cây sẽ thực hiện quá trình quang hợp? Vì sao?</span>
+                                </h3>
+
+                                <textarea id="c10" rows="5" oninput="saveInput('c10', this.value)"
+                                    placeholder="Viết câu trả lời của em tại đây..."
+                                    class="table-input scalable-text">${state.answers.c10}</textarea>
+
+                                <div id="hint-box" class="hidden mt-5 p-5 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 scalable-text">
+                                    <strong>💡 Đáp án tham khảo:</strong> Ở xương rồng, cành giao,... lá đã biến đổi thành gai (hoặc tiêu giảm) để hạn chế thoát hơi nước. Bộ phận thực hiện quá trình quang hợp là <strong>thân cây</strong> (thân màu xanh) vì các tế bào ở thân có chứa nhiều <strong>lục lạp (diệp lục)</strong> giúp hấp thụ năng lượng ánh sáng để quang hợp.
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                /* ---------- PHẦN III: CÂU 11, 12, 13 ---------- */
+                case 'vd_c11_13':
+                    html = `
+                        <div class="step-animate space-y-6">
+                            ${headerBadge}
+                            ${SVG_ILLUSTRATIONS.cayTrongNha}
+
+                            <!-- Câu 11 -->
+                            <div class="bg-white rounded-3xl shadow-md border-2 border-slate-200 p-6 sm:p-8">
+                                <h3 class="scalable-heading font-extrabold text-slate-800 mb-4 flex items-start gap-3">
+                                    <span class="px-3.5 py-1 rounded-xl bg-sky-600 text-white shrink-0">Câu 11</span>
+                                    <span>Giải thích vì sao nhiều loại cây trồng trong nhà vẫn có thể sống bình thường dù không có ánh nắng mặt trời chiếu trực tiếp.</span>
+                                </h3>
+                                <textarea id="c11" rows="3" oninput="saveInput('c11', this.value)"
+                                    placeholder="Nhập lời giải thích của em..." class="table-input scalable-text">${state.answers.c11}</textarea>
+                            </div>
+
+                            <!-- Câu 12 -->
+                            <div class="bg-white rounded-3xl shadow-md border-2 border-slate-200 p-6 sm:p-8">
+                                <h3 class="scalable-heading font-extrabold text-slate-800 mb-4 flex items-start gap-3">
+                                    <span class="px-3.5 py-1 rounded-xl bg-sky-600 text-white shrink-0">Câu 12</span>
+                                    <span>Việc để cây xanh trong phòng khách có ý nghĩa gì?</span>
+                                </h3>
+                                <textarea id="c12" rows="3" oninput="saveInput('c12', this.value)"
+                                    placeholder="Nhập ý nghĩa của việc để cây xanh trong phòng khách..." class="table-input scalable-text">${state.answers.c12}</textarea>
+                            </div>
+
+                            <!-- Câu 13 -->
+                            <div class="bg-white rounded-3xl shadow-md border-2 border-slate-200 p-6 sm:p-8">
+                                <h3 class="scalable-heading font-extrabold text-slate-800 mb-4 flex items-start gap-3">
+                                    <span class="px-3.5 py-1 rounded-xl bg-sky-600 text-white shrink-0">Câu 13</span>
+                                    <span>Dựa vào kiến thức về vai trò của lá cây đối với quá trình quang hợp, em hãy đề xuất một số biện pháp chăm sóc và bảo vệ cây trồng.</span>
+                                </h3>
+                                <textarea id="c13" rows="4" oninput="saveInput('c13', this.value)"
+                                    placeholder="Đề xuất các biện pháp chăm sóc và bảo vệ cây trồng..." class="table-input scalable-text">${state.answers.c13}</textarea>
+                            </div>
+
+                            <div id="hint-box" class="hidden p-6 rounded-3xl bg-amber-50 border-2 border-amber-300 text-amber-950 scalable-text space-y-3">
+                                <strong class="text-xl block">💡 Gợi ý đáp án Phần III (Vận dụng):</strong>
+                                <p><strong>• Câu 11:</strong> Các loại cây trồng trong nhà thường là cây ưa bóng (nhu cầu ánh sáng thấp). Chúng vẫn có thể hấp thụ ánh sáng khuếch tán qua cửa sổ hoặc ánh sáng nhân tạo từ đèn điện để thực hiện quang hợp và sinh trưởng bình thường.</p>
+                                <p><strong>• Câu 12:</strong> Cây xanh trong phòng khách giúp thanh lọc không khí (hấp thụ CO₂, thải O₂ vào ban ngày), điều hoà không khí, làm đẹp không gian sống và giúp tinh thần thư giãn, thoải mái.</p>
+                                <p><strong>• Câu 13:</strong> Tưới nước đầy đủ; bón phân hợp lí để lá xanh tốt; trồng mật độ hợp lí và tỉa cành để lá đón đủ ánh sáng; lau bụi trên lá cây trong nhà; bắt sâu, phòng trừ sâu bệnh hại lá.</p>
+                            </div>
+                        </div>
+                    `;
+                    break;
+
+                /* ---------- TỔNG KẾT ---------- */
+                case 'summary':
+                    const doneCount = countCompletedQuestions();
+                    html = `
+                        <div class="step-animate space-y-6">
+                            <div class="bg-gradient-to-r from-leaf-700 to-emerald-600 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
+                                <div>
+                                    <h2 class="text-2xl sm:text-3xl font-extrabold mb-1">🎉 TỔNG KẾT PHIẾU HỌC TẬP BÀI 22</h2>
+                                    <p class="text-leaf-100 text-lg font-medium">
+                                        Học sinh: <strong>${state.studentName || '(Chưa nhập tên)'}</strong> &nbsp;|&nbsp; Lớp: <strong>${state.studentClass || '(Chưa nhập lớp)'}</strong>
+                                    </p>
+                                </div>
+                                <div class="bg-white/20 backdrop-blur-xs rounded-2xl px-6 py-3 text-center">
+                                    <div class="text-3xl font-extrabold">${doneCount} / 13</div>
+                                    <div class="text-sm font-semibold text-leaf-50">Câu đã hoàn thành</div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-wrap gap-3 no-print">
+                                <button onclick="window.print()" class="px-6 py-3 rounded-xl bg-leaf-600 hover:bg-leaf-700 text-white font-bold text-lg shadow flex items-center gap-2">
+                                    <span>🖨️</span> In / Lưu PDF bài làm
+                                </button>
+                                <button onclick="confirmReset()" class="px-6 py-3 rounded-xl bg-red-100 hover:bg-red-200 text-red-800 font-bold text-lg flex items-center gap-2">
+                                    <span>🔄</span> Làm lại từ đầu
+                                </button>
+                            </div>
+
+                            <!-- Full Review Card -->
+                            <div class="bg-white rounded-3xl shadow-md border-2 border-slate-200 p-6 sm:p-8 space-y-5 scalable-text">
+                                <h3 class="text-xl font-extrabold text-leaf-800 border-b-2 border-leaf-100 pb-2">Chi tiết bài làm của em</h3>
+                                ${renderSummaryRow('Câu 1', `Quang hợp là quá trình <b>${valOrDash('c1_1')}</b> và <b>${valOrDash('c1_2')}</b>, diễn ra chủ yếu ở <b>${valOrDash('c1_3')}</b>, trong bào quan <b>${valOrDash('c1_4')}</b>.`)}
+                                ${renderSummaryRow('Câu 2', `Nguyên liệu: <b>${valOrDash('c2_1')}</b> | Sản phẩm: <b>${valOrDash('c2_2')}</b> | Yếu tố tham gia: <b>${valOrDash('c2_3')}</b>`)}
+                                ${renderSummaryRow('Câu 3', `Sử dụng <b>${valOrDash('c3_1')}</b> và khí <b>${valOrDash('c3_2')}</b> nhờ năng lượng <b>${valOrDash('c3_3')}</b> được <b>${valOrDash('c3_4')}</b> hấp thụ để tổng hợp <b>${valOrDash('c3_5')}</b> và giải phóng khí <b>${valOrDash('c3_6')}</b>.`)}
+                                ${renderSummaryRow('Câu 4', `<b>${valOrDash('c4_l1')}</b> + <b>${valOrDash('c4_l2')}</b> ⟶ (<i>${valOrDash('c4_top')} / ${valOrDash('c4_bot')}</i>) ⟶ <b>${valOrDash('c4_r1')}</b> + <b>${valOrDash('c4_r2')}</b>`)}
+                                ${renderSummaryRow('Câu 5', `Các phân tử <b>${valOrDash('c5_1')}</b> liên kết hình thành nên <b>${valOrDash('c5_2')}</b>.`)}
+                                ${renderSummaryRow('Câu 6', `Lấy vào: <b>${valOrDash('c6_1')}</b> | Giải phóng: <b>${valOrDash('c6_2')}</b> | Tổng hợp: <b>${valOrDash('c6_3')}</b> | Hấp thụ: <b>${valOrDash('c6_4')}</b> | Tích trữ: <b>${valOrDash('c6_5')}</b>`)}
+                                ${renderSummaryRow('Câu 7', `Diễn ra <b>${valOrDash('c7_1')}</b>; tổng hợp <b>${valOrDash('c7_2')}</b>; giải phóng <b>${valOrDash('c7_3')}</b>; chuyển hoá thành <b>${valOrDash('c7_4')}</b>.`)}
+                                ${renderSummaryRow('Câu 8', `Cơ quan: <b>${valOrDash('c8_1')}</b>; Phiến lá: <b>${valOrDash('c8_2')}</b>, <b>${valOrDash('c8_3')}</b>; <b>${valOrDash('c8_4')}</b>; <b>${valOrDash('c8_5')}</b>; <b>${valOrDash('c8_6')}</b>; Diệp lục: <b>${valOrDash('c8_7')}</b> và <b>${valOrDash('c8_8')}</b>.`)}
+                                ${renderSummaryRow('Câu 9', `Phiến lá: ${valOrDash('c9_1a')} (${valOrDash('c9_1b')}) • Lục lạp: ${valOrDash('c9_2a')} (${valOrDash('c9_2b')}) • Gân lá: ${valOrDash('c9_3a')} (${valOrDash('c9_3b')}) • Khí khổng: ${valOrDash('c9_4a')} (${valOrDash('c9_4b')})`)}
+                                ${renderSummaryRow('Câu 10', valOrDash('c10'))}
+                                ${renderSummaryRow('Câu 11', valOrDash('c11'))}
+                                ${renderSummaryRow('Câu 12', valOrDash('c12'))}
+                                ${renderSummaryRow('Câu 13', valOrDash('c13'))}
+                            </div>
+                        </div>
+                    `;
+                    break;
+            }
+
+            container.innerHTML = html;
+            document.getElementById('main-scroll').scrollTop = 0;
+
+            // Update bottom navigation buttons visibility
+            document.getElementById('btn-prev').disabled = state.currentStep === 0;
+            const isLast = state.currentStep === steps.length - 1;
+            const isIntro = state.currentStep === 0;
+
+            document.getElementById('btn-next').classList.toggle('hidden', isLast);
+            document.getElementById('btn-next-label').textContent = isIntro ? 'Bắt đầu làm bài' : (state.currentStep === steps.length - 2 ? 'Xem tổng kết' : 'Tiếp theo');
+            document.getElementById('btn-check').classList.toggle('hidden', !step.checkable);
+            document.getElementById('btn-hint').classList.toggle('hidden', isIntro || isLast);
+
+            renderSidebar();
+            updateProgress();
+        }
+
+        function valOrDash(key) {
+            const v = (state.answers[key] || '').trim();
+            return v ? v.replace(/</g, '&lt;').replace(/>/g, '&gt;') : '<span class="text-slate-400 italic">(chưa điền)</span>';
+        }
+
+        function renderSummaryRow(title, content) {
+            return `
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                    <span class="inline-block px-2.5 py-0.5 rounded-lg bg-leaf-600 text-white font-bold text-sm mr-2">${title}</span>
+                    <span class="text-slate-800">${content}</span>
+                </div>
+            `;
+        }
+
+        /* =====================================================================
+           6. AUTO-CHECKING & HINTS
+           ===================================================================== */
+        function toggleHint() {
+            playTone('click');
+            const box = document.getElementById('hint-box');
+            if (box) {
+                box.classList.toggle('hidden');
+                if (!box.classList.contains('hidden')) {
+                    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+        }
+
+        function checkCurrentStep() {
+            const step = steps[state.currentStep];
+            let fields = [];
+            let keywordMode = false;
+
+            if (step.id === 'nv1_c1') fields = ['c1_1', 'c1_2', 'c1_3', 'c1_4'];
+            else if (step.id === 'nv1_c2') { fields = ['c2_1', 'c2_2', 'c2_3']; keywordMode = true; }
+            else if (step.id === 'nv1_c3') fields = ['c3_1', 'c3_2', 'c3_3', 'c3_4', 'c3_5', 'c3_6'];
+            else if (step.id === 'nv2_c4_5') fields = ['c4_l1', 'c4_l2', 'c4_top', 'c4_bot', 'c4_r1', 'c4_r2', 'c5_1', 'c5_2'];
+            else if (step.id === 'nv3_c6') { fields = ['c6_1', 'c6_2', 'c6_3', 'c6_4', 'c6_5']; keywordMode = true; }
+            else if (step.id === 'nv3_c7') fields = ['c7_1', 'c7_2', 'c7_3', 'c7_4'];
+            else if (step.id === 'nv4_c8') fields = ['c8_1', 'c8_2', 'c8_3', 'c8_4', 'c8_5', 'c8_6', 'c8_7', 'c8_8'];
+            else if (step.id === 'nv4_c9') {
+                // Open table check: verify non-empty
+                const tFields = ['c9_1a','c9_1b','c9_2a','c9_2b','c9_3a','c9_3b','c9_4a','c9_4b'];
+                let filled = 0;
+                tFields.forEach(id => {
+                    const el = document.getElementById(id);
+                    const ok = (state.answers[id] || '').trim().length >= 4;
+                    if (el) {
+                        el.classList.remove('correct', 'incorrect');
+                        el.classList.add(ok ? 'correct' : 'incorrect');
+                    }
+                    if (ok) filled++;
+                });
+                if (filled === tFields.length) {
+                    playTone('success');
+                    showToast('Tuyệt vời! Em đã điền đầy đủ Bảng 22.2. Hãy bấm "Gợi ý / Đáp án" để đối chiếu nhé!', 'success');
+                } else {
+                    playTone('error');
+                    showToast(`Em mới hoàn thành ${filled}/${tFields.length} ô. Hãy bổ sung các ô màu đỏ nhé!`, 'warning');
+                }
+                return;
+            }
+
+            let correctCount = 0;
+            fields.forEach(id => {
+                const el = document.getElementById(id);
+                const val = state.answers[id] || '';
+                const keys = answerKeys[id] || [];
+                const isOk = keywordMode ? isKeywordMatch(val, keys) : isExactMatch(val, keys);
+                if (el) {
+                    el.classList.remove('correct', 'incorrect');
+                    el.classList.add(isOk ? 'correct' : 'incorrect');
+                }
+                if (isOk) correctCount++;
+            });
+
+            if (correctCount === fields.length) {
+                playTone('success');
+                state.checkedSteps[step.id] = true;
+                showToast(`Xuất sắc! Chính xác ${correctCount}/${fields.length} ý!`, 'success');
+            } else {
+                playTone('error');
+                showToast(`Đúng ${correctCount}/${fields.length} ý. Hãy kiểm tra lại các ô màu đỏ nhé!`, 'error');
+            }
+            renderSidebar();
+        }
+
+        /* =====================================================================
+           7. PROGRESS, NAVIGATION, SIDEBAR, FONT SIZE & FULLSCREEN
+           ===================================================================== */
+        function isQuestionCompleted(qNum) {
+            const a = state.answers;
+            const nonEmpty = (...keys) => keys.every(k => (a[k] || '').trim().length > 0);
+            switch (qNum) {
+                case 1: return nonEmpty('c1_1','c1_2','c1_3','c1_4');
+                case 2: return nonEmpty('c2_1','c2_2','c2_3');
+                case 3: return nonEmpty('c3_1','c3_2','c3_3','c3_4','c3_5','c3_6');
+                case 4: return nonEmpty('c4_l1','c4_l2','c4_top','c4_bot','c4_r1','c4_r2');
+                case 5: return nonEmpty('c5_1','c5_2');
+                case 6: return nonEmpty('c6_1','c6_2','c6_3','c6_4','c6_5');
+                case 7: return nonEmpty('c7_1','c7_2','c7_3','c7_4');
+                case 8: return nonEmpty('c8_1','c8_2','c8_3','c8_4','c8_5','c8_6','c8_7','c8_8');
+                case 9: return nonEmpty('c9_1a','c9_1b','c9_2a','c9_2b','c9_3a','c9_3b','c9_4a','c9_4b');
+                case 10: return nonEmpty('c10');
+                case 11: return nonEmpty('c11');
+                case 12: return nonEmpty('c12');
+                case 13: return nonEmpty('c13');
+                default: return false;
+            }
+        }
+
+        function countCompletedQuestions() {
+            let c = 0;
+            for (let i = 1; i <= 13; i++) if (isQuestionCompleted(i)) c++;
+            return c;
+        }
+
+        function updateProgress() {
+            const done = countCompletedQuestions();
+            const pct = Math.round((done / 13) * 100);
+            const bar = document.getElementById('progress-bar');
+            const txt = document.getElementById('progress-text');
+            if (bar) bar.style.width = pct + '%';
+            if (txt) txt.textContent = `${done} / 13 câu (${pct}%)`;
+        }
+
+        function updateHeaderStudent() {
+            const el = document.getElementById('header-student-info');
+            if (state.studentName || state.studentClass) {
+                el.textContent = `HS: ${state.studentName || '...'} • Lớp: ${state.studentClass || '...'}`;
+            } else {
+                el.textContent = 'Phiếu học tập chuẩn bị bài • KHTN 7';
+            }
+        }
+
+        function renderSidebar() {
+            const nav = document.getElementById('sidebar-nav');
+            let lastSection = '';
+            let html = '';
+
+            steps.forEach((st, idx) => {
+                if (st.section !== lastSection) {
+                    html += `<div class="pt-3 pb-1 px-2 text-xs font-extrabold uppercase tracking-wider text-leaf-700">${st.section}</div>`;
+                    lastSection = st.section;
+                }
+                const isActive = idx === state.currentStep;
+                const isDone = st.questions.length > 0 && st.questions.every(q => isQuestionCompleted(q));
+                html += `
+                    <button onclick="goToStep(${idx})" class="w-full text-left px-3.5 py-2.5 rounded-xl font-semibold text-sm sm:text-base transition flex items-center justify-between gap-2 ${
+                        isActive
+                            ? 'bg-leaf-600 text-white shadow-md'
+                            : 'text-slate-700 hover:bg-leaf-50'
+                    }">
+                        <span class="truncate">${st.short}</span>
+                        <span class="shrink-0 text-sm">
+                            ${isDone ? (isActive ? '✅' : '🟢') : (st.questions.length ? '⚪' : '')}
+                        </span>
+                    </button>
+                `;
+            });
+            nav.innerHTML = html;
+        }
+
+        function updateSidebarStatus() {
+            renderSidebar();
+        }
+
+        function goToStep(index) {
+            if (index < 0 || index >= steps.length) return;
+            playTone('click');
+            state.currentStep = index;
+            renderStep();
+            // Auto-close sidebar on mobile after selection
+            if (window.innerWidth < 1024) {
+                closeSidebarMobile();
+            }
+        }
+
+        function nextStep() {
+            if (state.currentStep < steps.length - 1) goToStep(state.currentStep + 1);
+        }
+
+        function prevStep() {
+            if (state.currentStep > 0) goToStep(state.currentStep - 1);
+        }
+
+        function toggleSidebar() {
+            const sb = document.getElementById('sidebar');
+            const bd = document.getElementById('sidebar-backdrop');
+            if (window.innerWidth < 1024) {
+                const isClosed = sb.classList.contains('-translate-x-full');
+                sb.classList.toggle('-translate-x-full', !isClosed);
+                bd.classList.toggle('hidden', !isClosed);
+            } else {
+                sb.classList.toggle('hidden');
+            }
+        }
+
+        function closeSidebarMobile() {
+            document.getElementById('sidebar').classList.add('-translate-x-full');
+            document.getElementById('sidebar-backdrop').classList.add('hidden');
+        }
+
+        function changeFontSize(delta) {
+            playTone('click');
+            state.fontSizeScale = Math.min(1.5, Math.max(0.8, +(state.fontSizeScale + delta).toFixed(1)));
+            document.documentElement.style.setProperty('--content-scale', state.fontSizeScale);
+            const label = document.getElementById('font-size-label');
+            if (label) label.textContent = Math.round(state.fontSizeScale * 100) + '%';
+        }
+
+        function toggleFullscreen() {
+            playTone('click');
+            try {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(() => {
+                        showToast('Trình duyệt đang chặn chế độ toàn màn hình.', 'info');
+                    });
+                } else {
+                    document.exitFullscreen();
+                }
+            } catch (e) {
+                showToast('Thiết bị không hỗ trợ nút toàn màn hình.', 'info');
+            }
+        }
+
+        document.addEventListener('fullscreenchange', () => {
+            const isFs = !!document.fullscreenElement;
+            document.getElementById('icon-fs-enter').classList.toggle('hidden', isFs);
+            document.getElementById('icon-fs-exit').classList.toggle('hidden', !isFs);
+        });
+
+        function confirmReset() {
+            openModal('Làm lại Phiếu học tập?', 'Toàn bộ câu trả lời hiện tại sẽ được xóa để em làm lại từ đầu.', () => {
+                Object.keys(state.answers).forEach(k => state.answers[k] = '');
+                state.checkedSteps = {};
+                goToStep(0);
+                showToast('Đã làm mới phiếu học tập!', 'info');
+            });
+        }
+
+        /* =====================================================================
+           8. INITIALIZATION
+           ===================================================================== */
+        window.onload = function () {
+            renderStep();
+        };
+    </script>
+</body>
+</html>
